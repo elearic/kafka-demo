@@ -4,7 +4,7 @@ package net.eric.kafka.demo.pojo;
  * @Author: eric
  * @Date: 2021/7/1 11:18 下午
  */
-public class RefTest {
+public class ReferenceDemo {
 
     public static void doErrorHandle() {
         boolean a = false;
