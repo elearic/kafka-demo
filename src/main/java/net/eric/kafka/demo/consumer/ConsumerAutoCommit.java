@@ -20,7 +20,7 @@ public class ConsumerAutoCommit implements Runnable {
      */
     private static void autoCommit() {
         Consumer consumer = ConsumerCreator.creatorConsumer();
-        consumer.subscribe(Collections.singleton("topic1"));
+        consumer.subscribe(Collections.singleton("topic"));
         try {
             while (true) {
                 ConsumerRecords<String, String> records = consumer.poll(100);

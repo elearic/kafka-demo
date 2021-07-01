@@ -10,22 +10,27 @@ import org.apache.kafka.clients.producer.RecordMetadata;
  * @Author: eric
  * @Date: 2021/6/13 12:53 上午
  */
-public class ProducerMain {
+public class ProducerThread implements Runnable {
 
-    private static final String TOPIC = "topic1";
+    private final String topic;
 
-    private static final int PARTITION_INDEX = 4;
+    private final int partition_index;
 
-    public static void main(String[] args) {
+    public ProducerThread(String topic, int partition) {
+        this.topic = topic;
+        this.partition_index = partition;
+    }
+
+    private void sendMessage() {
         Producer producer = ProducerCreator.createProducer();
 
-        for (int i = 1; i < 100000; i++) {
+        for (int i = 1; i < 1000000; i++) {
             Message msg = new Message(String.valueOf(i), "this is " + i + " record.");
-            ProducerRecord record = new ProducerRecord(TOPIC, PARTITION_INDEX, String.valueOf(i),
+            ProducerRecord record = new ProducerRecord(topic, partition_index, String.valueOf(i),
                     msg.toString());
             try {
                 //此方法并未实时发送，只是将消息放入了cache
-                producer.send(record);
+//                producer.send(record);
 
                 //同步发送消息，
                 RecordMetadata metadata = (RecordMetadata) producer.send(record).get();
@@ -37,5 +42,9 @@ public class ProducerMain {
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override public void run() {
+        sendMessage();
     }
 }

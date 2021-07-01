@@ -15,9 +15,10 @@ public class ConsumerCreator {
     public static Consumer creatorConsumer() {
         Properties prop = new Properties();
         prop.put("bootstrap.servers", "localhost:9092");
-        prop.put("group.id", "MyGroup");
+        prop.put("group.id", "audi");
         prop.put("key.deserializer", StringDeserializer.class);
         prop.put("value.deserializer", StringDeserializer.class);
+        prop.put("auto.offset.reset","earliest");
         return new KafkaConsumer(prop);
     }
 
